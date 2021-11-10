@@ -626,6 +626,16 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tools\CSCli\CSCli.csproj">
+      <Project>{9c5b4994-70c3-489d-933c-e2049c0505db}</Project>
+      <Name>CSCli</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Tools\InlineILCompiler\InlineILCompiler\InlineILCompiler.csproj">
+      <Project>{9522588a-5311-41f1-814c-4fb626fc0b47}</Project>
+      <Name>InlineILCompiler</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>@echo off &amp; setLocal EnableDELAYedeXpansion
