@@ -83,6 +83,31 @@ namespace CSCore
             return new DmoResampler(input.ToWaveSource(), destinationSampleRate).ToSampleSource();
         }
 
+        public static ChannelMask GetChannelMask(int channels)
+        {
+            ChannelMask channelMask = 0;
+            switch (channels)
+            {
+                case 1:
+                    channelMask = ChannelMasks.MonoMask;
+                    break;
+                case 2:
+                    channelMask = ChannelMasks.StereoMask;
+                    break;
+
+                case 4:
+                    channelMask = ChannelMasks.QuadraphonicMask;
+                    break;
+                case 6:
+                    channelMask = ChannelMasks.FiveDotOneWithSideMask;
+                    break;
+                case 8:
+                    channelMask = ChannelMasks.SevenDotOneMask;
+                    break;
+            }
+
+            return channelMask;
+        }
 
         /// <summary>
         ///     Converts the specified wave source with n channels to a wave source with two channels.
@@ -106,6 +131,12 @@ namespace CSCore
             if (format != null)
             {
                 ChannelMask channelMask = format.ChannelMask;
+
+                if (channelMask == 0)
+                {
+                    channelMask = GetChannelMask(input.WaveFormat.Channels);
+                }
+
                 ChannelMatrix channelMatrix = ChannelMatrix.GetMatrix(channelMask, ChannelMasks.StereoMask);
                 return new DmoChannelResampler(input, channelMatrix);
             }
@@ -160,13 +191,18 @@ namespace CSCore
             if (format != null)
             {
                 ChannelMask channelMask = format.ChannelMask;
+                if (channelMask == 0)
+                {
+                    channelMask = GetChannelMask(input.WaveFormat.Channels);
+                }
+
                 ChannelMatrix channelMatrix = ChannelMatrix.GetMatrix(channelMask, ChannelMasks.MonoMask);
                 return new DmoChannelResampler(input, channelMatrix);
             }
 
             Debug.WriteLine("MultiChannel stream with no ChannelMask.");
 
-            WaveFormat waveFormat = (WaveFormat) input.WaveFormat.Clone();
+            WaveFormat waveFormat = (WaveFormat)input.WaveFormat.Clone();
             waveFormat.Channels = 1;
             return new DmoResampler(input, waveFormat);
         }
@@ -199,7 +235,7 @@ namespace CSCore
         /// <returns>The new instance <see cref="LoopStream" /> instance.</returns>
         public static IWaveSource Loop(this IWaveSource input)
         {
-            return new LoopStream(input) {EnableLoop = true};
+            return new LoopStream(input) { EnableLoop = true };
         }
 
         /// <summary>
