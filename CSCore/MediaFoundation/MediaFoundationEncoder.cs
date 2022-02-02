@@ -308,7 +308,7 @@ namespace CSCore.MediaFoundation
         public static MediaFoundationEncoder CreateMP3Encoder(WaveFormat sourceFormat, string targetFilename,
             int bitRate = 192000)
         {
-            return CreateMP3Encoder(sourceFormat, File.Open(targetFilename, FileMode.OpenOrCreate, FileAccess.ReadWrite),
+            return CreateMP3Encoder(sourceFormat, File.Open(targetFilename, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read),
                 bitRate);
         }
 
@@ -354,7 +354,7 @@ namespace CSCore.MediaFoundation
         public static MediaFoundationEncoder CreateWMAEncoder(WaveFormat sourceFormat, string targetFilename,
             int bitRate = 192000)
         {
-            return CreateWMAEncoder(sourceFormat, File.Open(targetFilename, FileMode.OpenOrCreate, FileAccess.ReadWrite),
+            return CreateWMAEncoder(sourceFormat, File.Open(targetFilename, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read),
                 bitRate);
         }
 
@@ -400,7 +400,7 @@ namespace CSCore.MediaFoundation
         public static MediaFoundationEncoder CreateAACEncoder(WaveFormat sourceFormat, string targetFilename,
             int bitRate = 192000)
         {
-            return CreateAACEncoder(sourceFormat, File.Open(targetFilename, FileMode.OpenOrCreate, FileAccess.ReadWrite),
+            return CreateAACEncoder(sourceFormat, File.Open(targetFilename, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read),
                 bitRate);
         }
 

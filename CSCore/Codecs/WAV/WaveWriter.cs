@@ -52,7 +52,7 @@ namespace CSCore.Codecs.WAV
         ///     data.
         /// </param>
         public WaveWriter(string fileName, WaveFormat waveFormat)
-            : this(File.OpenWrite(fileName), waveFormat)
+            : this(File.Open(fileName, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.Read), waveFormat)
         {
             _closeStream = true;
         }
